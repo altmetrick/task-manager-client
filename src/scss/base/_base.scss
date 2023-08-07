@@ -1,0 +1,27 @@
+/* Using universal selector * for reset, border-box (borders and paddings don't added to the total width/hight of element ) */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  //// 1rem = 16px
+  /// Y% = (Xpx / DEFpx) * 100%, X - font-size in px that you want to specify in % of DEF - default font-size (16px)
+  /// Y = ( 10px / 16px ) * 100% => Y = 62.5%
+  font-size: 62.5%; // 1rem = 10px
+}
+
+body {
+  box-sizing: border-box;
+
+  background-color: rgb(0, 0, 0);
+  color: $color-white;
+}
+
+::selection {
+  background-color: rgba(yellowgreen, 0.2);
+  color: white;
+}

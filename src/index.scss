@@ -1,0 +1,9 @@
+//we can @import scss partials files (starts with '_') into  main scss file - index.css
+@import './scss/abstracts/mixins';
+@import './scss/abstracts/variables';
+
+@import './scss/base/base';
+@import './scss/base/typography';
+@import './scss/base/utils';
+
+@import './scss/components/button';

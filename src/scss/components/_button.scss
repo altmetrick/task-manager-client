@@ -1,0 +1,97 @@
+.btn {
+  &,
+  &:link,
+  &:visited {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+  }
+
+  &--action {
+    //blue
+    color: $color-action;
+    background-color: inherit;
+    border: solid rgba($color-action, 0.5) 1px;
+    border-radius: 100px;
+
+    box-shadow: 0 0 1rem rgba($color-action, 0.5);
+
+    transition: all 0.3s;
+
+    &:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 0 3rem rgba($color-action, 0.4);
+    }
+  }
+
+  &--danger {
+    //red
+    color: $color-danger;
+    background-color: inherit;
+    border: solid rgba($color-danger, 0.5) 1px;
+    border-radius: 100px;
+
+    box-shadow: 0 0 1rem rgba($color-danger, 0.5);
+
+    transition: all 0.4s;
+
+    &:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 0 3rem rgba($color-danger, 0.4);
+    }
+  }
+  &--danger-2 {
+    //red
+    font-size: 1rem;
+    color: $color-danger;
+    background-color: inherit;
+    border: solid rgba($color-danger, 0.5) 1px;
+    border-radius: 100px;
+
+    box-shadow: 0 0 0.6rem rgba($color-danger, 0.5);
+
+    transition: all 0.4s;
+
+    &:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 0 2rem rgba($color-danger, 0.3);
+    }
+  }
+
+  &--primary {
+    //green
+    color: $color-primary;
+    background-color: inherit;
+    border: solid rgba($color-primary, 0.5) 1px;
+    border-radius: 100px;
+
+    box-shadow: 0 0 1rem rgba($color-primary, 0.5);
+
+    transition: all 0.3s;
+
+    &:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 0 3rem rgba($color-primary, 0.4);
+    }
+  }
+
+  // &:hover {
+  //   transform: translateY(-5px);
+  //   box-shadow: 0 1rem 2rem rgba($color-black, 0.3);
+
+  //   &::after {
+  //     transform: scaleX(1.4) scaleY(1.6);
+  //     opacity: 0;
+  //   }
+  // }
+  &:active {
+    transform: translateY(-1px);
+  }
+  &:disabled,
+  &[disabled] {
+    opacity: 0.5;
+  }
+}

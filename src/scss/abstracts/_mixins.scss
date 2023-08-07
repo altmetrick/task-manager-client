@@ -1,0 +1,71 @@
+@mixin clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin absCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+//MEDIA QUERY MANAGER
+/*
+0     - 600px   :  Phone;
+600px - 900px   :  Tablet Portrait;
+900px - 1200px  : Tablet Landscape;
+1200px - 1800px : Our normal styles apply;
+1800px - ....   : Big desktop;
+*/
+
+/*
+Order to add media queries:
+Base + typography > general layout + grid > page layout > components
+
+$breakpoint choices:
+ - phone       -  <-600px use @media (max-width: 600px) - styles will apply to | width >= max-width |
+ - tab-port    - <-900px  
+ - tab-land    - <-1200px
+ - big-desktop - 1800px-> use @media (min-width: 1800px) - styles will apply to | max-width <= width |
+
+
+ In media queries we need to use em units instead of pixels to specify max/min width
+ because we want our media queries correspond to the browser font-size, which can be
+ changed by user, so when user changes the default font-size, our media queries
+ will adapt to it
+ by default 1em = 16px
+*/
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    @media only screen and (max-width: 37.5em) {
+      //600px/16px = 37.5em
+      @content;
+    }
+  }
+
+  @if $breakpoint == tab-port {
+    @media only screen and (max-width: 56.25em) {
+      //900px
+      @content;
+    }
+  }
+
+  @if $breakpoint == tab-land {
+    @media only screen and (max-width: 75em) {
+      //1200px
+      @content;
+    }
+  }
+
+  @if $breakpoint == big-desktop {
+    @media only screen and (min-width: 112.5em) {
+      //1800px
+      @content;
+    }
+  }
+}
