@@ -1,0 +1,9 @@
+.task-list {
+  //background-color: antiquewhite;
+  max-height: 70vh;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 1px; /* Width of the scrollbar */
+  }
+}

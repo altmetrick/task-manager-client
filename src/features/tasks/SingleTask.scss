@@ -1,0 +1,61 @@
+@import '../../scss/abstracts/variables';
+
+.task {
+  position: relative;
+  background-color: rgba($color-secondary-dark, 0.3);
+  padding: 2rem 2rem;
+  border-radius: 1rem;
+
+  &__main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .task-actions {
+    background-color: rgba($color-secondary-light, 0.35);
+    padding: 0.5rem 1rem 1rem 1rem;
+    border-radius: 10rem;
+
+    &__btn {
+      cursor: pointer;
+      position: relative;
+      display: inline-block;
+      text-decoration: none;
+
+      width: 3rem;
+      height: 3rem;
+
+      padding: 1rem;
+
+      background-color: rgba($color-white, 0.5);
+      border: none;
+      border-radius: 100%;
+
+      &:not(:last-child) {
+        margin-right: 1rem;
+      }
+
+      .icon {
+        display: block;
+        font-size: 2rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
+  // &__title {
+  //   align-self: center;
+  // }
+
+  &__sub {
+    background-color: rgba($color-secondary-light, 0.35);
+    padding: 2rem;
+    border-radius: 1rem;
+  }
+}
