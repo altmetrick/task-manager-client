@@ -1,15 +1,25 @@
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../store/store';
+import { isLoggedIn } from './authSlice';
 
 export const PrivateRoutes = () => {
   const navigate = useNavigate();
-  const isAuthorized = true;
+  const dispatch = useAppDispatch();
+
+  let isAuthorized;
+
+  const checkIsLoggedIn = async () => {
+    isAuthorized = await dispatch(isLoggedIn()).unwrap();
+
+    if (!isAuthorized) {
+      navigate('/auth/login');
+    }
+  };
 
   useEffect(() => {
-    if (!isAuthorized) {
-      navigate('/auth');
-    }
-  }, [isAuthorized]);
+    checkIsLoggedIn();
+  }, []);
 
   return (
     <>

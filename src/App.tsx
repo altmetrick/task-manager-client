@@ -5,6 +5,9 @@ import { PrivateRoutes } from './features/auth/PrivateRoutes';
 import { HomePage } from './pages/HomePage';
 import { TasksList } from './features/tasks/TasksList';
 import { SingleTask } from './features/tasks/SingleTask';
+import { AuthPage } from './features/auth/AuthPage';
+import Login from './features/auth/Login';
+import Register from './features/auth/Register';
 
 function App() {
   return (
@@ -22,7 +25,10 @@ function App() {
           </Route>
         </Route>
 
-        <Route path={'/auth'} element={<div>Auth</div>} />
+        <Route path={'/auth'} element={<AuthPage />}>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Route>
       </Routes>
     </>
   );

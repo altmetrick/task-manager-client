@@ -15,9 +15,12 @@
   }
 
   .task-actions {
+    backface-visibility: hidden;
     background-color: rgba($color-secondary-light, 0.35);
     padding: 0.5rem 1rem 1rem 1rem;
     border-radius: 10rem;
+
+    backface-visibility: hidden;
 
     &__btn {
       cursor: pointer;
@@ -33,12 +36,30 @@
       background-color: rgba($color-white, 0.5);
       border: none;
       border-radius: 100%;
+      box-shadow: 0 0.5rem 0.5rem rgba($color-black, 0.4);
 
       &:not(:last-child) {
         margin-right: 1rem;
       }
+      //backface-visibility: hidden;
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: rgba($color-white, 0.8);
+        box-shadow: 0 1rem 1rem rgba($color-black, 0.4);
+      }
+
+      &--completed {
+        background-color: rgba(yellowgreen, 1);
+
+        &:hover {
+          background-color: rgba(yellowgreen, 0.8);
+          box-shadow: 0 1rem 1rem rgba($color-black, 0.4);
+        }
+      }
 
       .icon {
+        // backface-visibility: hidden;
         display: block;
         font-size: 2rem;
         position: absolute;
@@ -49,13 +70,23 @@
     }
   }
 
-  // &__title {
-  //   align-self: center;
-  // }
+  &__title {
+    font-size: 3rem;
+    line-height: 2.5rem;
+  }
 
   &__sub {
     background-color: rgba($color-secondary-light, 0.35);
     padding: 2rem;
     border-radius: 1rem;
+  }
+
+  &__body {
+    font-size: 2rem;
+    letter-spacing: 0.15rem;
+  }
+
+  &__info {
+    color: rgba(202, 199, 207, 0.586);
   }
 }
