@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppDispatch } from '../../store/store';
 import { register } from './authSlice';
+import { toast } from 'react-hot-toast';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -25,13 +26,16 @@ export default function Register() {
     };
 
     try {
-      console.log(user);
-      dispatch(register(user));
+      const res = await dispatch(register(user)).unwrap();
+      console.log(res);
       navigate('/');
+      toast.success(res.message);
       // setName('');
       // setEmail('');
       // setPassword('');
     } catch (err) {
+      //@ts-ignore
+      toast.error(err.message);
       console.log(err);
     }
   };
@@ -41,7 +45,7 @@ export default function Register() {
   return (
     <div className="form">
       <h2>Register</h2>
-      <form className="authForm" onSubmit={handleRegister}>
+      <form className="form-auth" onSubmit={handleRegister}>
         <label htmlFor="name">
           Name
           <input

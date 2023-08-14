@@ -7,10 +7,8 @@ export const PrivateRoutes = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  let isAuthorized;
-
   const checkIsLoggedIn = async () => {
-    isAuthorized = await dispatch(isLoggedIn()).unwrap();
+    const isAuthorized = await dispatch(isLoggedIn()).unwrap();
 
     if (!isAuthorized) {
       navigate('/auth/login');

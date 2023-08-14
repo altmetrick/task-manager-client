@@ -8,10 +8,13 @@ import { SingleTask } from './features/tasks/SingleTask';
 import { AuthPage } from './features/auth/AuthPage';
 import Login from './features/auth/Login';
 import Register from './features/auth/Register';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <>
+      <Toaster position="top-right" toastOptions={{ style: { fontSize: '1.8rem' } }} />
+
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path={'/'} element={<HomePage />}>

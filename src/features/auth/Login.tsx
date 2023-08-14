@@ -5,10 +5,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from './authSlice';
 import { AppDispatch } from '../../store/store';
+import { toast } from 'react-hot-toast';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  //const { error } = useAppSelector((state) => state.auth);
 
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
@@ -18,20 +21,21 @@ export default function Login() {
     const credentials = { email, password };
     try {
       const res = await dispatch(login(credentials)).unwrap();
-      //debugger;
-      console.log(res);
+      toast.success(res.message);
       navigate('/');
-    } catch (err) {
+    } catch (err: any) {
+      toast.error(err.message);
       console.log(err);
     }
   };
 
   const canLogin = !email || !password;
 
+  // className={`${error && 'form-auth--error'}`}
   return (
     <div className="form">
       <h2>Login</h2>
-      <form className="authForm" onSubmit={handleLogin}>
+      <form className="form-auth" onSubmit={handleLogin}>
         <label htmlFor="email">
           Email
           <input
