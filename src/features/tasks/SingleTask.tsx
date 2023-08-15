@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './SingleTask.scss';
 import { AiFillDelete, AiFillEdit, AiFillCheckCircle, AiOutlineArrowLeft } from 'react-icons/ai';
 
@@ -19,7 +20,9 @@ export const SingleTask = () => {
     <>
       <div className="go-back">
         <button>
-          <AiOutlineArrowLeft />
+          <Link to={'/'}>
+            <AiOutlineArrowLeft />
+          </Link>
         </button>
       </div>
       <div className="task">

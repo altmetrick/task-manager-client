@@ -13,7 +13,16 @@ import { Toaster } from 'react-hot-toast';
 function App() {
   return (
     <>
-      <Toaster position="top-right" toastOptions={{ style: { fontSize: '1.8rem' } }} />
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            fontSize: '1.8rem',
+            color: 'whitesmoke',
+            backgroundColor: 'rgba(82, 91, 163, 0.7)',
+          },
+        }}
+      />
 
       <Routes>
         <Route element={<PrivateRoutes />}>

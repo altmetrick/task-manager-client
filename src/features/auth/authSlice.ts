@@ -3,19 +3,19 @@ import axios, { AxiosError } from 'axios';
 
 type UserT = { name: string; email: string };
 
-type InitialStateT = {
+type InitialAuthStateT = {
   userData: null | UserT;
   isAuth: boolean;
   error: null | Error | string;
 };
 
-const initialState: InitialStateT = {
+const initialState = {
   userData: null,
   isAuth: false,
   error: null,
-};
+} as InitialAuthStateT;
 
-//Response Types:
+//Res Types:
 type RegisterResT = { user: UserT; message: string };
 type LoginResT = { user: UserT; message: string };
 type LogoutResT = { message: string };
@@ -54,7 +54,6 @@ export const login = createAsyncThunk(
     }
   }
 );
-
 export const logout = createAsyncThunk('auth/Logout', async (_, thunkApi) => {
   try {
     const { data } = await axios.get<LogoutResT>('/api/auth/logout');
@@ -67,7 +66,6 @@ export const logout = createAsyncThunk('auth/Logout', async (_, thunkApi) => {
     throw err;
   }
 });
-
 export const getUsersData = createAsyncThunk('auth/GetUsersData', async (_, thunkApi) => {
   try {
     const { data } = await axios.get<GetUsersDataResT>('/api/users/me');
@@ -80,7 +78,6 @@ export const getUsersData = createAsyncThunk('auth/GetUsersData', async (_, thun
     throw err;
   }
 });
-
 export const isLoggedIn = createAsyncThunk('auth/isLoggedIn', async (_, thunkApi) => {
   const { data } = await axios.get<IsLoggedInResT>('/api/auth/is-logged-in');
 
@@ -91,6 +88,8 @@ export const isLoggedIn = createAsyncThunk('auth/isLoggedIn', async (_, thunkApi
   return data.isLoggedIn;
 });
 
+//
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -98,14 +97,14 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       //Register
-      .addCase(register.fulfilled, (state, action) => {
-        state.userData = action.payload.user;
-        state.isAuth = true;
+      .addCase(register.fulfilled, () => {
+        //state.userData = action.payload.user;
+        // state.isAuth = true;
       })
       //Login
-      .addCase(login.fulfilled, (state, action) => {
-        state.userData = action.payload.user;
-        state.isAuth = true;
+      .addCase(login.fulfilled, () => {
+        // state.userData = action.payload.user;
+        //state.isAuth = true;
       })
       .addCase(login.rejected, (state, action: PayloadAction<{ message: string } | any>) => {
         state.error = action.payload.message;
@@ -115,15 +114,15 @@ const authSlice = createSlice({
         state.userData = null;
         state.isAuth = false;
       })
+      //isLoggedIn
+      .addCase(isLoggedIn.fulfilled, (state, action) => {
+        state.isAuth = action.payload;
+        // state.userData = action.payload.user;
+        // state.isAuth = true;
+      })
       //GetUserData
       .addCase(getUsersData.fulfilled, (state, action) => {
         state.userData = action.payload.user;
-        state.isAuth = true;
-      })
-      //isLoggedIn
-      .addCase(isLoggedIn.fulfilled, () => {
-        // state.userData = action.payload.user;
-        // state.isAuth = true;
       });
   },
 });
