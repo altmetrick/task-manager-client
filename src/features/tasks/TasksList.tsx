@@ -9,11 +9,11 @@ import { toast } from 'react-hot-toast';
 export const TasksList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  //const [error, setError] = useState(null);
 
   const tasks = useAppSelector((state) => selectAllTasksSorted(state));
 
-  const getUsers = async () => {
+  const getTasks = async () => {
     setIsLoading(true);
     try {
       const res = await dispatch(fetchTasks()).unwrap();
@@ -27,7 +27,7 @@ export const TasksList = () => {
 
   useEffect(() => {
     if (!tasks?.length) {
-      getUsers();
+      getTasks();
     }
   }, []);
 

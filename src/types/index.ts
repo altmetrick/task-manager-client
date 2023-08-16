@@ -8,3 +8,10 @@ export type TaskT = {
   updatedAt: string;
   __v: number;
 };
+
+export type TaskUpdateDataT = {
+  _id: string;
+  completed?: boolean;
+  title?: string;
+  body?: string;
+};
