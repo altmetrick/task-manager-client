@@ -5,6 +5,7 @@ import { AppDispatch, useAppSelector } from '../../store/store';
 import { fetchTasks, selectAllTasksSorted } from './tasksSlice';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-hot-toast';
+import { Skeleton } from '../../components/skeleton/Skeleton';
 
 export const TasksList = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -35,7 +36,11 @@ export const TasksList = () => {
 
   if (isLoading) {
     //should be skeleton
-    content = <div>Loading...</div>;
+    content = (
+      <div>
+        <Skeleton times={4} />
+      </div>
+    );
   } else {
     if (tasks) {
       content = tasks.map((task) => <TaskExcerpt task={task} key={task._id} />);

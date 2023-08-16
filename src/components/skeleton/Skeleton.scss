@@ -1,0 +1,84 @@
+@import '../../scss/abstracts/variables';
+
+.task-excerpt-skeleton {
+  background-color: rgba($color-secondary-dark, 0.3);
+  padding: 2rem 2rem 0 2rem;
+
+  border-radius: 1rem;
+
+  //animation: skeleton-loading 1s linear infinite alternate;
+
+  &:not(&:last-child) {
+    margin-bottom: 2rem;
+  }
+
+  &:first-child {
+    margin-top: 1rem;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    margin-bottom: 1rem;
+    margin-left: 0.5rem;
+  }
+
+  .task-actions {
+    backface-visibility: hidden;
+    background-color: rgba($color-secondary-light, 0.35);
+    padding: 0.5rem 1rem 1rem 1rem;
+    border-radius: 10rem;
+    width: 10rem;
+    height: 4.5rem;
+
+    backface-visibility: hidden;
+  }
+
+  &__sub {
+    background-color: rgba($color-secondary-light, 0.35);
+    padding: 2rem 2rem 2rem 2rem;
+    border-radius: 1rem 1rem 0 0;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+    &:hover {
+      background-color: rgba($color-secondary-light, 0.5);
+    }
+  }
+}
+
+.skeleton-text {
+  border-radius: 0.5rem;
+  &--title {
+    width: 70%;
+    margin-right: 3rem;
+    height: 3rem;
+  }
+  &--paragraph {
+    width: 100%;
+    height: 1.5rem;
+    margin-bottom: 0.7rem;
+  }
+}
+
+.skeleton {
+  opacity: 0.7;
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(211, 44%, 15%);
+  }
+  100% {
+    background-color: hsl(213, 15%, 41%);
+  }
+}

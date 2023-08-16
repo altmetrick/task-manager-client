@@ -2,6 +2,7 @@ import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit'
 import { TaskT, TaskUpdateDataT } from '../../types';
 import axios, { AxiosError } from 'axios';
 import { RootState } from '../../store/store';
+import { pauseSuccess } from '../../utils/pause';
 
 type InitialTasksStateT = {
   tasksEntities: TaskT[] | null;
@@ -31,6 +32,10 @@ type UpdateTaskResT = {
 export const fetchTasks = createAsyncThunk('tasks/Fetch', async (_, thunkApi) => {
   try {
     const { data } = await axios.get<fetchTasksResT>('api/tasks');
+
+    //DEV ONLY!!!
+    const res = await pauseSuccess(3);
+    console.log(res);
 
     return data;
   } catch (err) {
