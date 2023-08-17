@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
 import { TaskT, TaskUpdateDataT } from '../../types';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { RootState } from '../../store/store';
 import { pauseSuccess } from '../../utils/pause';
+import { axiosInstance } from '../../api/axios-instance';
 
 type InitialTasksStateT = {
   tasksEntities: TaskT[] | null;
@@ -29,12 +30,13 @@ type UpdateTaskResT = {
   task: TaskT;
 };
 //Thunks Creators:
+
 export const fetchTasks = createAsyncThunk('tasks/Fetch', async (_, thunkApi) => {
   try {
-    const { data } = await axios.get<fetchTasksResT>('api/tasks');
+    const { data } = await axiosInstance.get<fetchTasksResT>(`/tasks`);
 
     //DEV ONLY!!!
-    const res = await pauseSuccess(3);
+    const res = await pauseSuccess(0.5);
     console.log(res);
 
     return data;
@@ -48,7 +50,7 @@ export const fetchTasks = createAsyncThunk('tasks/Fetch', async (_, thunkApi) =>
 });
 export const deleteTask = createAsyncThunk('tasks/Delete', async (id: string, thunkApi) => {
   try {
-    const { data } = await axios.delete<DeleteTaskResT>(`api/tasks/${id}`);
+    const { data } = await axiosInstance.delete<DeleteTaskResT>(`/tasks/${id}`);
     return data;
   } catch (err) {
     const error: AxiosError<any> = err as any;
@@ -62,8 +64,10 @@ export const updateTask = createAsyncThunk(
   'tasks/Update',
   async (taskData: TaskUpdateDataT, thunkApi) => {
     const { _id } = taskData;
+
     try {
-      const { data } = await axios.patch<UpdateTaskResT>(`api/tasks/${_id}`, taskData);
+      const { data } = await axiosInstance.patch<UpdateTaskResT>(`/tasks/${_id}`, taskData);
+
       return data;
     } catch (err) {
       const error: AxiosError<any> = err as any;
@@ -111,6 +115,9 @@ const tasksSlice = createSlice({
 //Selectors:
 const selectAllTasks = (state: RootState) => state.tasks.tasksEntities;
 
+export const selectTaskById = (taskId?: string) => {
+  return (state: RootState) => state.tasks.tasksEntities?.find((task) => task._id === taskId);
+};
 export const selectAllTasksSorted = createSelector(selectAllTasks, (tasksEntities) => {
   if (tasksEntities === null) return null;
   console.log('select sorted tasks');

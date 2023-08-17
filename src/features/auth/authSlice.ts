@@ -1,5 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import { axiosInstance } from '../../api/axios-instance';
 
 type UserT = { name: string; email: string };
 
@@ -27,7 +28,7 @@ export const register = createAsyncThunk(
   'auth/Register',
   async (userData: { name: string; email: string; password: string }, thunkApi) => {
     try {
-      const { data } = await axios.post<RegisterResT>('/api/auth/register', userData);
+      const { data } = await axiosInstance.post<RegisterResT>(`/auth/register`, userData);
 
       return data;
     } catch (err) {
@@ -43,7 +44,7 @@ export const login = createAsyncThunk(
   'auth/Login',
   async (credentials: { email: string; password: string }, thunkApi) => {
     try {
-      const { data } = await axios.post<LoginResT>('/api/auth/login', credentials);
+      const { data } = await axiosInstance.post<LoginResT>(`/auth/login`, credentials);
       return data;
     } catch (err) {
       const error: AxiosError<any> = err as any;
@@ -56,7 +57,7 @@ export const login = createAsyncThunk(
 );
 export const logout = createAsyncThunk('auth/Logout', async (_, thunkApi) => {
   try {
-    const { data } = await axios.get<LogoutResT>('/api/auth/logout');
+    const { data } = await axiosInstance.get<LogoutResT>(`/auth/logout`);
     return data;
   } catch (err) {
     const error: AxiosError<any> = err as any;
@@ -68,7 +69,7 @@ export const logout = createAsyncThunk('auth/Logout', async (_, thunkApi) => {
 });
 export const getUsersData = createAsyncThunk('auth/GetUsersData', async (_, thunkApi) => {
   try {
-    const { data } = await axios.get<GetUsersDataResT>('/api/users/me');
+    const { data } = await axiosInstance.get<GetUsersDataResT>(`/users/me`);
     return data;
   } catch (err) {
     const error: AxiosError<any> = err as any;
@@ -79,7 +80,7 @@ export const getUsersData = createAsyncThunk('auth/GetUsersData', async (_, thun
   }
 });
 export const isLoggedIn = createAsyncThunk('auth/isLoggedIn', async (_, thunkApi) => {
-  const { data } = await axios.get<IsLoggedInResT>('/api/auth/is-logged-in');
+  const { data } = await axiosInstance.get<IsLoggedInResT>(`/auth/is-logged-in`);
 
   if (data.isLoggedIn) {
     thunkApi.dispatch(getUsersData());

@@ -15,7 +15,13 @@
   }
 
   .task-actions {
-    backface-visibility: hidden;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 16rem;
+    //on mobile viewport
+    //justify-content: center;
+
     background-color: rgba($color-secondary-light, 0.35);
     padding: 0.5rem 1rem 1rem 1rem;
     border-radius: 10rem;
@@ -39,9 +45,10 @@
       box-shadow: 0 0.5rem 0.5rem rgba($color-black, 0.4);
 
       &:not(:last-child) {
-        margin-right: 1rem;
+        // margin-right: 0.5rem;
+        //margin-bottom: 0.5rem;
       }
-      //backface-visibility: hidden;
+      backface-visibility: hidden;
       transition: all 0.3s;
 
       &:hover {
@@ -72,7 +79,7 @@
 
   &__title {
     font-size: 3rem;
-    line-height: 2.5rem;
+    line-height: 3.5rem;
   }
 
   &__sub {

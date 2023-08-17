@@ -1,0 +1,43 @@
+@import '../../scss/abstracts/variables';
+
+.edit-task-form {
+  position: relative;
+  background-color: rgba($color-secondary-dark, 0.3);
+  padding: 2rem 2rem;
+  border-radius: 1rem;
+
+  label {
+    visibility: hidden;
+    display: none;
+  }
+
+  &__title {
+    border: none;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: whitesmoke;
+
+    background-color: rgba($color-secondary-light, 0.3);
+    width: 100%;
+    padding: 1rem;
+    border-radius: 1rem;
+
+    margin-bottom: 1rem;
+  }
+
+  &__body {
+    border: none;
+    font-size: 2rem;
+    color: whitesmoke;
+    width: 100%;
+    background-color: rgba($color-secondary-light, 0.3);
+    padding: 2rem;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.flex {
+  display: flex;
+  justify-content: flex-end;
+}
