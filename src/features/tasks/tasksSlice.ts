@@ -88,8 +88,12 @@ const tasksSlice = createSlice({
   extraReducers: (builder) => {
     builder
       //FetchTasks
+      .addCase(fetchTasks.pending, (state) => {
+        state.status = 'loading';
+      })
       .addCase(fetchTasks.fulfilled, (state, action) => {
         state.tasksEntities = action.payload.tasks;
+        state.status = 'success';
       })
       //DeleteTask
       .addCase(deleteTask.fulfilled, (state, action) => {

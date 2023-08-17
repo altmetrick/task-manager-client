@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../store/store';
 import { deleteTask, selectTaskById, updateTask } from './tasksSlice';
 import { format, parseISO } from 'date-fns';
 import toast from 'react-hot-toast';
+import { Skeleton } from '../../components/skeleton/Skeleton';
 
 export const SingleTask = () => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ export const SingleTask = () => {
   let content;
 
   if (!task) {
-    content = null;
+    content = <Skeleton times={1} />;
   } else {
     content = (
       <div className="task">

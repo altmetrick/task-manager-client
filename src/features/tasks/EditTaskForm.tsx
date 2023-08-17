@@ -1,11 +1,12 @@
 import './EditTaskForm.scss';
 
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { selectTaskById, updateTask } from './tasksSlice';
 import toast from 'react-hot-toast';
+import { Skeleton } from '../../components/skeleton/Skeleton';
 
 export const EditTaskForm = () => {
   const { taskId } = useParams();
@@ -16,6 +17,11 @@ export const EditTaskForm = () => {
 
   const [title, setTitle] = useState(task?.title);
   const [body, setBody] = useState(task?.body);
+
+  useEffect(() => {
+    setTitle(task?.title);
+    setBody(task?.body);
+  }, [task]);
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
   const handleBodyChange = (e: ChangeEvent<HTMLTextAreaElement>) => setBody(e.target.value);
@@ -41,6 +47,43 @@ export const EditTaskForm = () => {
 
   const canSave = title?.trim() !== task?.title || body?.trim() !== task?.body;
 
+  let content;
+
+  if (!task) {
+    content = <Skeleton times={1} />;
+  } else {
+    content = (
+      <form className="edit-task-form" onSubmit={handleUpdateTask}>
+        <div>
+          <label htmlFor="title">Title</label>
+          <input
+            className="edit-task-form__title"
+            type="text"
+            id="title"
+            value={title}
+            onChange={handleTitleChange}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="body">Body</label>
+          <textarea
+            className="edit-task-form__body"
+            id="body"
+            rows={6}
+            value={body}
+            onChange={handleBodyChange}
+          />
+        </div>
+        <div className="flex">
+          <button className="btn btn--action" disabled={!canSave}>
+            Save
+          </button>
+        </div>
+      </form>
+    );
+  }
+
   return (
     <>
       <div className="go-back">
@@ -51,34 +94,7 @@ export const EditTaskForm = () => {
 
       <div>
         <h2>Edit task</h2>
-        <form className="edit-task-form" onSubmit={handleUpdateTask}>
-          <div>
-            <label htmlFor="title">Title</label>
-            <input
-              className="edit-task-form__title"
-              type="text"
-              id="title"
-              value={title}
-              onChange={handleTitleChange}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="body">Body</label>
-            <textarea
-              className="edit-task-form__body"
-              id="body"
-              rows={6}
-              value={body}
-              onChange={handleBodyChange}
-            />
-          </div>
-          <div className="flex">
-            <button className="btn btn--action" disabled={!canSave}>
-              Save
-            </button>
-          </div>
-        </form>
+        {content}
       </div>
     </>
   );
