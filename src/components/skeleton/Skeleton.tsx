@@ -12,9 +12,7 @@ export const Skeleton: React.FC<{ times: number }> = ({ times }) => {
         </div>
 
         <div className="task-excerpt-skeleton__sub">
-          <p>
-            <div className="skeleton skeleton-text skeleton-text--paragraph"></div>
-          </p>
+          <div className="skeleton skeleton-text skeleton-text--paragraph"></div>
         </div>
       </div>
     ));

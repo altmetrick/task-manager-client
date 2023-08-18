@@ -15,3 +15,4 @@ export type TaskUpdateDataT = {
   title?: string;
   body?: string;
 };
+export type TasksFilterT = 'all' | 'completed' | 'active';

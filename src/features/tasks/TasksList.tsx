@@ -1,12 +1,13 @@
 import './TaskList.scss';
 import { TaskExcerpt } from './TaskExcerpt';
 import { useAppSelector } from '../../store/store';
-import { selectAllTasksSorted } from './tasksSlice';
+import { selectTasksByFilter } from './tasksSlice';
 import { Skeleton } from '../../components/skeleton/Skeleton';
 import { Link } from 'react-router-dom';
+import { TasksFilter } from './TasksFilter';
 
 export const TasksList = () => {
-  const tasks = useAppSelector((state) => selectAllTasksSorted(state));
+  const tasks = useAppSelector((state) => selectTasksByFilter(state));
   const status = useAppSelector((state) => state.tasks.status);
 
   let content;
@@ -27,6 +28,7 @@ export const TasksList = () => {
 
   return (
     <>
+      <TasksFilter />
       <div className="task-list">{content}</div>
       <div className="flex flex-justify-center u-margin-top-small">
         <Link className="btn btn--action" to={'/task'}>

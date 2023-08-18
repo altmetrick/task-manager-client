@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
-import { TaskT, TaskUpdateDataT } from '../../types';
+import { TaskT, TaskUpdateDataT, TasksFilterT } from '../../types';
 import { AxiosError } from 'axios';
 import { RootState } from '../../store/store';
 import { pauseSuccess } from '../../utils/pause';
@@ -8,6 +8,7 @@ import { axiosInstance } from '../../api/axios-instance';
 type InitialTasksStateT = {
   tasksEntities: TaskT[] | null;
   status: 'idle' | 'loading' | 'success';
+  filter: TasksFilterT;
   error: null | Error | string;
 };
 
@@ -15,6 +16,7 @@ const initialState = {
   tasksEntities: [],
   status: 'idle',
   error: null,
+  filter: 'all',
 } as InitialTasksStateT;
 
 //Res Types
@@ -99,12 +101,16 @@ export const updateTask = createAsyncThunk(
   }
 );
 
-//
+//Slice
 
 const tasksSlice = createSlice({
   name: 'tasks',
   initialState,
-  reducers: {},
+  reducers: {
+    changeFilter: (state, action) => {
+      state.filter = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       //FetchTasks
@@ -141,17 +147,43 @@ const tasksSlice = createSlice({
 });
 
 //Selectors:
-const selectAllTasks = (state: RootState) => state.tasks.tasksEntities;
 
+const selectAllTasks = (state: RootState) => state.tasks.tasksEntities;
+export const selectCurrentFilter = (state: RootState) => state.tasks.filter;
 export const selectTaskById = (taskId?: string) => {
   return (state: RootState) => state.tasks.tasksEntities?.find((task) => task._id === taskId);
 };
-export const selectAllTasksSorted = createSelector(selectAllTasks, (tasksEntities) => {
-  if (tasksEntities === null) return null;
+
+export const selectAllTasksNumber = (state: RootState) => state.tasks.tasksEntities?.length;
+export const selectCompletedTasksNumber = (state: RootState) =>
+  state.tasks.tasksEntities?.filter((task) => task.completed).length;
+export const selectActiveTasksNumber = (state: RootState) =>
+  state.tasks.tasksEntities?.filter((task) => !task.completed).length;
+
+export const selectAllTasksSorted = createSelector([selectAllTasks], (tasksEntities) => {
+  if (tasksEntities === null) return [];
   console.log('select sorted tasks');
   return [...tasksEntities].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
 });
 
+export const selectTasksByFilter = createSelector(
+  [selectAllTasksSorted, selectCurrentFilter],
+
+  (tasks: TaskT[], filter: TasksFilterT) => {
+    const showAllTasks = filter === 'all';
+    const showCompletedTasks = filter === 'completed';
+    const showActiveTasks = filter === 'active';
+
+    return tasks.filter((task) => {
+      if (showAllTasks) return task;
+      if (showCompletedTasks) return task.completed;
+      if (showActiveTasks) return !task.completed;
+    });
+  }
+);
+
+//Actions
+export const { changeFilter } = tasksSlice.actions;
 export const tasksReducer = tasksSlice.reducer;
