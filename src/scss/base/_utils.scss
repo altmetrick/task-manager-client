@@ -37,7 +37,18 @@
   margin-top: 10rem !important;
 }
 
-//flex align-self
+.margin_top_small {
+  margin-top: 1.5rem;
+}
+
+//flex
+.flex {
+  display: flex;
+}
+.flex-justify-center {
+  justify-content: center;
+}
+
 .align-self-end {
   align-self: flex-end;
 }

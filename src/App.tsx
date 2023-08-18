@@ -10,6 +10,7 @@ import Login from './features/auth/Login';
 import Register from './features/auth/Register';
 import { Toaster } from 'react-hot-toast';
 import { EditTaskForm } from './features/tasks/EditTaskForm';
+import { AddNewTaskForm } from './features/tasks/AddNewTaskForm';
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
             <Route index element={<TasksList />} />
 
             <Route path={'task'}>
-              <Route index element={<div>Add new task form</div>} />
+              <Route index element={<AddNewTaskForm />} />
               <Route path={':taskId'} element={<SingleTask />} />
               <Route path={'edit/:taskId'} element={<EditTaskForm />} />
             </Route>

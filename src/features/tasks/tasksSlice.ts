@@ -21,13 +21,17 @@ const initialState = {
 type fetchTasksResT = {
   tasks: TaskT[];
 };
-type DeleteTaskResT = {
-  message: string;
+type CreateTaskResT = {
   task: TaskT;
+  message: string;
+};
+type DeleteTaskResT = {
+  task: TaskT;
+  message: string;
 };
 type UpdateTaskResT = {
-  message: string;
   task: TaskT;
+  message: string;
 };
 //Thunks Creators:
 
@@ -48,6 +52,22 @@ export const fetchTasks = createAsyncThunk('tasks/Fetch', async (_, thunkApi) =>
     throw err;
   }
 });
+export const createTask = createAsyncThunk(
+  'tasks/Create',
+  async (taskData: { title: string; body: string }, thunkApi) => {
+    try {
+      const { data } = await axiosInstance.post<CreateTaskResT>('/tasks', taskData);
+
+      return data;
+    } catch (err) {
+      const error: AxiosError<any> = err as any;
+      if (error.response) {
+        return thunkApi.rejectWithValue(error.response.data);
+      }
+      throw err;
+    }
+  }
+);
 export const deleteTask = createAsyncThunk('tasks/Delete', async (id: string, thunkApi) => {
   try {
     const { data } = await axiosInstance.delete<DeleteTaskResT>(`/tasks/${id}`);
@@ -94,6 +114,10 @@ const tasksSlice = createSlice({
       .addCase(fetchTasks.fulfilled, (state, action) => {
         state.tasksEntities = action.payload.tasks;
         state.status = 'success';
+      })
+      //CreateTask
+      .addCase(createTask.fulfilled, (state, action) => {
+        state.tasksEntities?.push(action.payload.task);
       })
       //DeleteTask
       .addCase(deleteTask.fulfilled, (state, action) => {
