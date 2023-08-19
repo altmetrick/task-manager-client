@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../store/store';
 import { createTask } from './tasksSlice';
 import { toast } from 'react-hot-toast';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 export const AddNewTaskForm = () => {
   const navigate = useNavigate();
@@ -41,7 +42,9 @@ export const AddNewTaskForm = () => {
   return (
     <div>
       <div>
-        <button onClick={goBack}>{'<-'}</button>
+        <button className="btn btn--action" onClick={goBack}>
+          <AiOutlineArrowLeft />
+        </button>
       </div>
       <h2>Create New Task</h2>
       <form className="add-new-task-form" onSubmit={handleCreateNewTask}>

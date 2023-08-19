@@ -32,7 +32,6 @@ export const Header = () => {
           </div>
         </div>
         <div className="user-action">
-          <button className="btn btn--action">edit</button>
           <button className="btn btn--danger" onClick={handleLogout}>
             logout
           </button>

@@ -94,11 +94,9 @@ export const SingleTask = () => {
   return (
     <>
       <div className="go-back">
-        <button>
-          <Link to={'/'}>
-            <AiOutlineArrowLeft />
-          </Link>
-        </button>
+        <Link className="btn btn--action" to={'/'}>
+          <AiOutlineArrowLeft />
+        </Link>
       </div>
       {content}
     </>

@@ -87,7 +87,7 @@ export const EditTaskForm = () => {
   return (
     <>
       <div className="go-back">
-        <button onClick={goBack}>
+        <button className="btn btn--action" onClick={goBack}>
           <AiOutlineArrowLeft />
         </button>
       </div>
