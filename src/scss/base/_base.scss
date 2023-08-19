@@ -12,6 +12,25 @@ html {
   /// Y% = (Xpx / DEFpx) * 100%, X - font-size in px that you want to specify in % of DEF - default font-size (16px)
   /// Y = ( 10px / 16px ) * 100% => Y = 62.5%
   font-size: 62.5%; // 1rem = 10px
+  //// 1rem = 16px
+  /// Y% = (Xpx / DEFpx) * 100%, X - font-size in px that you want to specify in % of DEF - default font-size (16px)
+  /// Y = ( 10px / 16px ) * 100% => Y = 62.5%
+  font-size: 62.5%; // 1rem = 10px
+
+  @include respond(tab-land) {
+    //<-1200px
+    font-size: 56.25%; // 1rem = 9px | (8px/16px)*100% = 56.26%
+  }
+
+  @include respond(tab-port) {
+    //<-900px
+    font-size: 50%; // 1rem = 8px
+  }
+
+  @include respond(big-desktop) {
+    //1800px->
+    font-size: 75%; // 1rem = 12px
+  }
 }
 
 body {

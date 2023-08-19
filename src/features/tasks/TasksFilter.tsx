@@ -30,7 +30,7 @@ export const TasksFilter = () => {
   ];
 
   const renderedOptions = options.map((option) => (
-    <div
+    <span
       key={option.status}
       className={`option  ${option.status === currentFilter && 'option--active'}`}
       //@ts-ignore
@@ -38,7 +38,7 @@ export const TasksFilter = () => {
     >
       <span className="option__status">{option.status}</span>{' '}
       <span className="option__amount">{option.amount}</span>
-    </div>
+    </span>
   ));
 
   return <div className="tasks-filter">{renderedOptions}</div>;

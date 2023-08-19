@@ -1,9 +1,28 @@
+@import '../../scss/abstracts/mixins';
 .task-list {
+  position: relative;
   //background-color: antiquewhite;
-  height: 75vh;
+  height: 80vh;
   overflow-y: auto;
 
   &::-webkit-scrollbar {
     width: 1px; /* Width of the scrollbar */
+  }
+}
+
+.box-button {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translate(-50%, 0rem);
+
+  @include respond(phone) {
+    bottom: 1rem;
+    left: 50%;
+    transform: translate(-50%, -1rem);
+  }
+
+  .btn--add-new-task {
+    background-color: rgb(6, 2, 24);
   }
 }

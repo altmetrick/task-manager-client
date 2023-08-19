@@ -30,8 +30,9 @@ export const TasksList = () => {
     <>
       <TasksFilter />
       <div className="task-list">{content}</div>
-      <div className="flex flex-justify-center u-margin-top-small">
-        <Link className="btn btn--action" to={'/task'}>
+
+      <div className="box-button">
+        <Link className="btn btn--action btn--add-new-task" to={'/task'}>
           Add New Task
         </Link>
       </div>

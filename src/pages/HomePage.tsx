@@ -28,7 +28,7 @@ export const HomePage = () => {
       <main className="container-main">
         <Outlet />
       </main>
-      <footer>Footer</footer>
+      <footer></footer>
     </>
   );
 };

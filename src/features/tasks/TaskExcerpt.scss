@@ -1,13 +1,18 @@
 @import '../../scss/abstracts/variables';
+@import '../../scss//abstracts/mixins';
+
 .task-excerpt {
   background-color: rgba($color-secondary-dark, 0.3);
   padding: 2rem 2rem 0 2rem;
 
   border-radius: 1rem;
-
-  &:not(&:last-child) {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
+  &:last-child {
+    margin-bottom: 20rem;
   }
+  // &:not(&:last-child) {
+  //   margin-bottom: 2rem;
+  // }
 
   &:first-child {
     margin-top: 1rem;
@@ -34,6 +39,11 @@
 
     backface-visibility: hidden;
 
+    @include respond(phone) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
     &__btn {
       cursor: pointer;
       position: relative;
@@ -53,6 +63,7 @@
       &:not(:last-child) {
         margin-right: 1rem;
       }
+
       //backface-visibility: hidden;
       transition: all 0.3s;
 
@@ -78,6 +89,15 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+      }
+      @include respond(phone) {
+        &:not(:last-child) {
+          margin-right: 0;
+        }
+        //as used flex-direction: column-reverse on parent
+        &:not(:first-child) {
+          margin-bottom: 1rem;
+        }
       }
     }
   }
