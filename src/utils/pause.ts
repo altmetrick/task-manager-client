@@ -7,7 +7,7 @@ export function pauseSuccess(seconds: number) {
   });
 }
 export function pauseError(seconds: number) {
-  return new Promise((resolve, reject) => {
+  return new Promise((_resolve, reject) => {
     setTimeout(() => {
       reject('Error from pause function!');
     }, seconds * 1000);
