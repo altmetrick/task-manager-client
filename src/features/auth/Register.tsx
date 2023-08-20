@@ -90,7 +90,7 @@ export default function Register() {
         </button>
       </form>
       <div className="form__info">
-        <span>Already registered?</span>
+        <span>Already registered? </span>
         <Link to={'/auth/login'}>Login</Link>
       </div>
     </div>

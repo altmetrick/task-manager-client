@@ -66,7 +66,7 @@ export default function Login() {
         </button>
       </form>
       <div className="form__info">
-        <span>Not registered?</span>
+        <span>Not registered? </span>
         <Link to={'/auth/register'}>Register</Link>
       </div>
     </div>
